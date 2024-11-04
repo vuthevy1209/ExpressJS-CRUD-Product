@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh Sửa Sản Phẩm</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header-title">Chỉnh Sửa Sản Phẩm</h1>
+    </header>
+    <div class="form-container">
+        <form class="form" action="/products/edit/<%= product._id %>" method="POST">
+            <input type="text" class="form-input" name="title" value="<%= product.title %>" required>
+            <textarea class="form-input" name="description" required><%= product.description %></textarea>
+            <input type="number" class="form-input" name="price" value="<%= product.price %>" required>
+            <input type="submit" class="form-submit" value="Cập Nhật">
+        </form>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 Bản quyền thuộc về bạn.</p>
+    </footer>
+</body>
+
+</html>

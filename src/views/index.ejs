@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Sản Phẩm</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header-title">Danh Sách Sản Phẩm</h1>
+    </header>
+    <div class="product-list">
+        <% products.forEach(product=> { %>
+            <div class="product">
+                <h2 class="product-title">
+                    <%= product.title %>
+                </h2>
+                <p class="product-description">
+                    <%= product.description %>
+                </p>
+                <div class="product-actions">
+                    <a class="product-edit" href="/products/edit/<%= product._id %>">Chỉnh Sửa</a>
+                    <form action="/products/delete/<%= product._id %>" method="POST" class="product-delete-form">
+                        <button type="submit" class="product-delete">Xóa</button>
+                    </form>
+                </div>
+            </div>
+            <% }) %>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 Bản quyền thuộc về bạn.</p>
+    </footer>
+</body>
+
+</html>
