@@ -1,0 +1,157 @@
+<style>
+    .product-img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        line-height: 1.2;
+    }
+
+    /* Giá sản phẩm */
+    .product-price {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #e74c3c;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    /* Mô tả sản phẩm */
+    .product-description {
+        font-size: 1.1rem;
+        color: #7f8c8d;
+        margin-bottom: 20px;
+        line-height: 1.6;
+    }
+
+    /* Chi tiết sản phẩm */
+    .product-details {
+        font-size: 1rem;
+        color: #7f8c8d;
+        margin-bottom: 25px;
+    }
+
+    .product-details p {
+        margin: 10px 0;
+    }
+
+    .product-details span {
+        font-weight: bold;
+        color: #34495e;
+    }
+
+    /* Đánh giá sản phẩm */
+    .rating {
+        font-size: 1.4rem;
+        color: #f39c12;
+    }
+
+    .rating span {
+        font-weight: bold;
+    }
+
+    .rating i {
+        color: #f39c12;
+    }
+
+    /* Nút thêm vào giỏ hàng */
+    .product-btn {
+        background-color: #3498db;
+        color: white;
+        padding: 14px 24px;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: auto;
+    }
+
+    .product-btn:hover {
+        background-color: #2980b9;
+        transform: translateY(-3px);
+    }
+
+    .product-btn:active {
+        transform: translateY(1px);
+    }
+
+    /* Thêm khoảng cách dưới cùng */
+    .mb-4 {
+        margin-bottom: 30px;
+    }
+
+    /* Cải tiến giao diện cho responsive */
+    @media (max-width: 767px) {
+        .product-title {
+            font-size: 1.8rem;
+        }
+
+        .product-price {
+            font-size: 1.6rem;
+        }
+
+        .product-description,
+        .product-details {
+            font-size: 1rem;
+        }
+
+        .product-btn {
+            font-size: 1rem;
+            width: 100%;
+            padding: 12px;
+        }
+
+        .product-img {
+            margin-bottom: 20px;
+        }
+
+        .product-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row">
+        <!-- Thông tin sản phẩm -->
+        <div class="col-lg-6 col-md-12 mb-4">
+            <img src="{{product.image}}" alt="Product Image" class="product-img">
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h2 class="product-title">{{product.name}}</h2>
+                <h3 class="product-price">Giá: ${{product.price}}</h3>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12">
+            <div class="product-description">
+                <p>{{product.description}}</p>
+            </div>
+
+            <div class="product-details">
+                <p><span>Thương hiệu:</span>{{product.brand}}</p>
+                <p><span>Số lượng tồn kho:</span> {{product.inventory_quantity}} sản phẩm</p>
+                <p><span>Danh mục:</span>{{product.category}}</p>
+                <p><span>Ngày thêm sản phẩm:</span> 15/10/2024</p>
+                <p class="rating"><span>Đánh giá:</span> ★★★★☆ (4/5)</p>
+            </div>
+
+            <button class="product-btn">Thêm vào giỏ hàng</button>
+        </div>
+    </div>
+</div>

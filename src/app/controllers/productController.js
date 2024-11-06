@@ -1,38 +1,39 @@
-const Product = require('../models/Product');
+const Product = require('../models/product');
+const { mongooseToObject } = require('../../utils/mongoose');
 
-// Trang danh sách sản phẩm
-exports.getProducts = async (req, res) => {
-    const products = await Product.find();
-    res.render('products', { products });
-};
+class ProductController {
+    // [GET] /products/:slug
+    async show(req, res) {
+        try {
+            const product = await Product.findOne({ slug: req.params.slug });
+            if (!product) {
+                return res.status(404).json({ error: 'Product not found' });
+            }
+            const productObject = mongooseToObject(product);
 
-// Trang thêm sản phẩm
-exports.addProduct = (req, res) => {
-    res.render('addProduct');
-};
+            res.render('product/ProductDetails', { product: productObject });
+        } catch (error) {
+            console.error('Error finding product:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 
-// Xử lý thêm sản phẩm
-exports.postAddProduct = async (req, res) => {
-    const { name, price, description } = req.body;
-    const newProduct = new Product({ name, price, description });
-    await newProduct.save();
-    res.redirect('/products');
-};
+    // [GET] /products/add
+    create(req, res) {
+        res.render('product/createProduct');
+    }
 
-// Xử lý sửa sản phẩm
-exports.editProduct = async (req, res) => {
-    const product = await Product.findById(req.params.id);
-    res.render('editProduct', { product });
-};
+    // [POST] /products
+    async store(req, res) {
+        try {
+            const product = new Product(req.body);
+            await product.save();
+            res.redirect('/home');
+        } catch (error) {
+            console.error('Error creating product:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+}
 
-exports.postEditProduct = async (req, res) => {
-    const { name, price, description } = req.body;
-    await Product.findByIdAndUpdate(req.params.id, { name, price, description });
-    res.redirect('/products');
-};
-
-// Xử lý xóa sản phẩm
-exports.deleteProduct = async (req, res) => {
-    await Product.findByIdAndDelete(req.params.id);
-    res.redirect('/products');
-};
+module.exports = new ProductController();
