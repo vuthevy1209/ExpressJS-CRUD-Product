@@ -3,34 +3,35 @@
     "version": "1.0.0",
     "main": "src/index.js",
     "scripts": {
-      "start": "nodemon --inspect src/index.js",
-      "watch": "sass --watch src/resources/scss:src/public/css --no-source-map",
-      "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "nodemon --inspect src/index.js",
+        "watch": "sass --watch src/resources/scss:src/public/css --no-source-map",
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/vuthevy1209/ExpressJS-Blog.git"
+        "type": "git",
+        "url": "git+https://github.com/vuthevy1209/ExpressJS-Blog.git"
     },
     "keywords": [
-      "blog"
+        "blog"
     ],
     "author": "Vu The Vy",
     "license": "ISC",
     "bugs": {
-      "url": "https://github.com/vuthevy1209/ExpressJS-Blog/issues"
+        "url": "https://github.com/vuthevy1209/ExpressJS-Blog/issues"
     },
     "homepage": "https://github.com/vuthevy1209/ExpressJS-Blog#readme",
     "description": "",
     "dependencies": {
-      "express": "^4.21.1",
-      "express-handlebars": "^8.0.1",
-      "mongoose": "^8.8.0",
-      "mongoose-slug-generator": "^1.0.4",
-      "sass": "^1.80.6"
+        "bcrypt": "^5.1.1",
+        "express": "^4.21.1",
+        "express-handlebars": "^8.0.1",
+        "handlebars-helpers": "^0.10.0",
+        "mongoose": "^6.13.3",
+        "mongoose-slug-generator": "^1.0.4",
+        "sass": "^1.80.6"
     },
     "devDependencies": {
-      "morgan": "^1.10.0",
-      "nodemon": "^3.1.7"
+        "morgan": "^1.10.0",
+        "nodemon": "^3.1.7"
     }
-  }
-  
+}

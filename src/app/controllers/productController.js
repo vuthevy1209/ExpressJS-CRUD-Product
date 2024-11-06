@@ -1,11 +1,12 @@
-const Product = require('../models/product');
+// controllers/ProductController.js
+const productService = require('../services/productService');
 const { mongooseToObject } = require('../../utils/mongoose');
 
 class ProductController {
     // [GET] /products/:slug
     async show(req, res) {
         try {
-            const product = await Product.findOne({ slug: req.params.slug });
+            const product = await productService.findBySlug(req.params.slug);
             if (!product) {
                 return res.status(404).json({ error: 'Product not found' });
             }
@@ -18,7 +19,7 @@ class ProductController {
         }
     }
 
-    // [GET] /products/add
+    // [GET] /products/create
     create(req, res) {
         res.render('product/createProduct');
     }
@@ -26,9 +27,8 @@ class ProductController {
     // [POST] /products
     async store(req, res) {
         try {
-            const product = new Product(req.body);
-            await product.save();
-            res.redirect('/home');
+            await productService.createProduct(req.body);
+            res.redirect(`/home`);
         } catch (error) {
             console.error('Error creating product:', error);
             res.status(500).json({ error: 'Internal Server Error' });

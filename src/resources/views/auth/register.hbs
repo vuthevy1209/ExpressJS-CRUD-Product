@@ -1,0 +1,19 @@
+<form action="/GA03/register" method="POST">
+    {{#if error}}
+    <div class="error-message">Mật khẩu không trùng khớp</div>
+    {{/if}}
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="confirmPassword">Confirm Password</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+    <button type="submit">Register</button>
+
+    <small>Return to the login page ? <a href="/GA03/login">Login</a></small>
+</form>
+
+<link rel="stylesheet" href="/css/register.css">

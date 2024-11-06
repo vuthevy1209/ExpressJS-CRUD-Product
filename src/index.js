@@ -1,9 +1,15 @@
 const path = require('path');
 const express = require('express');
-const morgan = require('morgan');
-const { engine } = require('express-handlebars');
+const { engine } = require('express-handlebars'); // Import đúng engine từ express-handlebars
 const router = require('./routes/index.js');
 const db = require('./config/database');
+const hbsHelpers = require('handlebars-helpers'); // Cài helpers
+
+// Khai báo Handlebars với helpers
+const hbs = engine({
+    extname: '.hbs',  // Đảm bảo rằng tệp template có phần mở rộng là .hbs
+    helpers: hbsHelpers() // Đăng ký tất cả helpers, bao gồm extend
+});
 
 // Connect to DB
 db.connect();
@@ -11,23 +17,14 @@ db.connect();
 const app = express();
 const port = 3000;
 
-// Static file
+// Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// HTTP logger
-// app.use(morgan('combined'));
-
 // Template engine
-app.engine('.hbs', engine({
-    extname: '.hbs',
-    // runtimeOptions: {
-    //     allowProtoPropertiesByDefault: true,
-    //     allowProtoMethodsByDefault: true,
-    // }
-}));
+app.engine('.hbs', hbs);  // Cấu hình engine với express-handlebars
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'resources', 'views'));
 
