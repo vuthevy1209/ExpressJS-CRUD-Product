@@ -6,7 +6,7 @@
         "node": "14.x"
     },
     "scripts": {
-        "start": "node src/index.js",
+        "start": "nodemon src/index.js",
         "watch": "sass --watch src/resources/scss:src/public/css --no-source-map",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
