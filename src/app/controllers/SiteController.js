@@ -14,6 +14,11 @@ class SiteController {
             res.status(400).json({ error: 'ERROR!!!' });
         }
     }
+
+    // [GET] /contact
+    contact(req, res) {
+        res.render('contact');
+    }
 }
 
 module.exports = new SiteController();
