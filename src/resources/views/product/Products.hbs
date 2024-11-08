@@ -1,0 +1,306 @@
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <h3>Bộ Lọc Tìm kiếm</h3>
+
+            <hr class="my-3">
+
+            <div class="filter-group">
+                <label for="category" style="font-weight: 600; color: red;">Theo Danh Mục</label>
+
+                <!-- checkbox -->
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="dien-thoai" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Điện Thoại
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="may-tinh" id="defaultCheck2">
+                    <label class="form-check-label" for="defaultCheck2">
+                        Máy Tính
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck3">
+                    <label class="form-check-label" for="defaultCheck3">
+                        Phụ Kiện
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck3">
+                    <label class="form-check-label" for="defaultCheck3">
+                        Siêu Nhân
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck3">
+                    <label class="form-check-label" for="defaultCheck3">
+                        Cơ sở dữ liệu
+                    </label>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="filter-group">
+                <label for="category" style="font-weight: 600; color: red;">Theo Nơi Bán</label>
+
+                <!-- checkbox -->
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="dien-thoai" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        TP Hồ Chí Minh
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="may-tinh" id="defaultCheck2">
+                    <label class="form-check-label" for="defaultCheck2">
+                        Hà Nội
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck3">
+                    <label class="form-check-label" for="defaultCheck3">
+                        Đà Nẵng
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck3">
+                    <label class="form-check-label" for="defaultCheck3">
+                        Cần Thơ
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck3">
+                    <label class="form-check-label" for="defaultCheck3">
+                        Hải Phòng
+                    </label>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="filter-group">
+                <label for="category" style="font-weight: 600; color: red;">Đơn vị vận chuyển</label>
+
+                <!-- checkbox -->
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="dien-thoai" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                        Giao Hàng Hỏa Tốc
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="may-tinh" id="defaultCheck2">
+                    <label class="form-check-label" for="defaultCheck2">
+                        Giao Hàng Nhanh
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck3">
+                    <label class="form-check-label" for="defaultCheck3">
+                        Giao Hàng Tiết Kiệm
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label for="price-range" style="font-weight: 600; color: red;">Khoảng giá</label>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="price-min" placeholder="Từ" min="0">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="price-max" placeholder="Đến" min="0">
+                </div>
+            </div>
+
+        </div>
+        <div class="col-10">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div class="row">
+                        <div class="col-10">
+                            <input type="text" placeholder="Search for products" class="search-input">
+                        </div>
+                        <div class="col-2">
+                            <button class="btn btn-primary" type="button">Search</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pl-4 pr-4">
+                    {{#each productList}}
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <a href="/products/{{this.slug}}" style="text-decoration: none;">
+                            <div class=" card">
+                                <div class="branch">{{this.brand}}</div>
+                                <div class="image">
+                                    <img src="{{this.image}}" alt="Product" class="w-100" />
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title mb-3 text-center">{{this.name}}</h5>
+                                    <h6 class="card- mb-3 text-center">${{this.price}}</h6>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {{/each}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container-fluid {
+        margin: 20px 220px;
+    }
+
+    .filter-group {
+        margin-bottom: 20px;
+    }
+
+    .filter-group label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+
+    .search-input {
+        width: 100%;
+    }
+
+    .col-10 {
+        width: 83.3333%;
+    }
+
+    .col-12 {
+        width: 100%;
+    }
+
+    .col-2 {
+        width: 16.6667%;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 10px;
+        background-color: #e31616;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #f42d2d;
+    }
+
+    /* Branch styling */
+    .branch {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        border-radius: 8px;
+        z-index: 2;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Card container */
+    .card {
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        background-color: #f8f9fa;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card:hover .card-title,
+    .card:hover .card-price {
+        color: #007bff;
+    }
+
+    /* Image container with fixed height */
+    .image {
+        width: 100%;
+        height: 300px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    /* Card body */
+    .card .card-body {
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .card .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .card .card-price {
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    /* Hover transition */
+    .card .card-title,
+    .card .card-price {
+        transition: color 0.3s ease;
+    }
+
+    .btn-box {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        margin-top: 45px;
+    }
+
+    .btn-box a {
+        display: inline-block;
+        padding: 10px 40px;
+        background-color: #f7444e;
+        border: 1px solid #f7444e;
+        color: #ffffff;
+        border-radius: 0;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+    }
+
+    .btn-box a:hover {
+        background-color: transparent;
+        color: #f7444e;
+    }
+</style>

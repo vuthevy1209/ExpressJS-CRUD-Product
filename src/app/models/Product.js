@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 mongoose.plugin(slug);
 
 const Product = new Schema({
+    _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
     name: { type: String, required: true, maxLength: 255 },
     image: { type: String, required: true },
     price: { type: Number, required: true },

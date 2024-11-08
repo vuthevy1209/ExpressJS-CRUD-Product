@@ -1,30 +1,147 @@
-<div class="container py-5">
+<div class="heading_container heading_center mt-4">
+    <h2 style="color: rgb(230, 28, 28);">
+        {{product.name}}
+    </h2>
+</div>
+
+<div class="container mt-4 mb-5">
     <div class="row">
-        <!-- Thông tin sản phẩm -->
         <div class="col-lg-6 col-md-12 mb-4">
-            <img src="{{product.image}}" alt="Product Image" class="product-img">
-            <div class="d-flex justify-content-between align-items-center w-100">
-                <h2 class="product-title">{{product.name}}</h2>
-                <h3 class="product-price">Giá: ${{product.price}}</h3>
+            <div class="row">
+                <div class="col-12">
+                    <div class="image">
+                        <img src="{{product.image}}" alt="Product Image" class="product-img">
+                    </div>
+                </div>
+                <div class="col-12 mt-4">
+                    <div class="row">
+                        <div class="col-6">
+                            <h2 class="product-title text-center">{{product.name}}</h2>
+                        </div>
+                        <div class="col-6">
+                            <h3 class="product-price text-center">Giá: ${{product.price}}</h3>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-6 col-md-12 mb-4">
             <div class="product-description">
-                <p>{{product.description}}</p>
+                <p><span>Mô tả: </span>{{product.description}}</p>
             </div>
 
             <div class="product-details">
-                <p><span>Thương hiệu:</span>{{product.brand}}</p>
-                <p><span>Số lượng tồn kho:</span> {{product.inventory_quantity}} sản phẩm</p>
-                <p><span>Danh mục:</span>{{product.category}}</p>
-                <p><span>Ngày thêm sản phẩm:</span> 15/10/2024</p>
-                <p class="rating"><span>Đánh giá:</span> ★★★★☆ (4/5)</p>
+                <p><span>Thương hiệu: </span>
+                    <span class="branch">
+                        {{product.brand}}
+                    </span>
+                </p>
+                <p><span>Số lượng tồn kho: </span> {{product.inventory_quantity}} sản phẩm</p>
+                <p><span>Danh mục: </span>{{product.category}}</p>
+                <p><span>Ngày thêm sản phẩm: </span> 15/10/2024</p>
+                <p class="rating"><span>Đánh giá: </span> ★★★★☆ (4/5)</p>
             </div>
-
-            <button class="product-btn">Thêm vào giỏ hàng</button>
+            <hr>
         </div>
+    </div>
+
+
+
+    <div class="row text-center">
+        <div class="col-6">
+            <div class="quantity-container d-flex justify-content-center align-items-center">
+                <span class="quantity-btn decrement">-</span>
+                <input type="text" class="quantity-input" value="1" min="0" max="10" readonly>
+                <span class="quantity-btn increment">+</span>
+            </div>
+        </div>
+        <div class="col-6">
+            <a href="#" class="btn-box btn-submit">
+                Add
+            </a>
+            <a href="#" class="btn-box btn-submit">
+                Mua ngay
+            </a>
+        </div>
+    </div>
+
+    <hr class="my-4">
+</div>
+
+<div class="container mt-4 mb-5">
+    <h3>Ảnh khác:</h3>
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="image--other">
+                <img src="{{product.image}}" alt="Product Image" class="product-img">
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="image--other">
+                <img src="{{product.image}}" alt="Product Image" class="product-img">
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="image--other">
+                <img src="{{product.image}}" alt="Product Image" class="product-img">
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="image--other">
+                <img src="{{product.image}}" alt="Product Image" class="product-img">
+            </div>
+        </div>
+
     </div>
 </div>
 
+<div class="container mt-4 mb-5">
+    {{#if relatedProductList}}
+    <h3>Sản phẩm liên quan: </h3>
+    <div class="row">
+        {{#each relatedProductList}}
+        <div class="col-lg-3 col-md-6 mb-3">
+            <a href="/products/{{this.slug}}" style="text-decoration: none;">
+                <div class="image--other">
+                    <img src="{{this.image}}" alt="Product Image" class="product-img">
+                </div>
+                <div class="detail-box">
+                    <h5 class="text-center" style="color: black;">
+                        {{this.name}}
+                    </h5>
+                </div>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <h3>Sản phẩm liên quan: Không có</h3>
+    {{/if}}
+</div>
+
+
+
 <link rel="stylesheet" href="/css/productDetails.css">
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const decrementBtn = document.querySelector(".decrement");
+        const incrementBtn = document.querySelector(".increment");
+        const quantityInput = document.querySelector(".quantity-input");
+
+        decrementBtn.addEventListener("click", () => {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > parseInt(quantityInput.min)) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        incrementBtn.addEventListener("click", () => {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue < parseInt(quantityInput.max)) {
+                quantityInput.value = currentValue + 1;
+            }
+        });
+    });
+
+</script>

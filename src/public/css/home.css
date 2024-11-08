@@ -1,46 +1,97 @@
-.card {
-  border: 1px solid #ddd;
-  border-radius: 15px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-.card:hover .card-title,
-.card:hover .card-price {
-  color: #007bff;
-  transition: color 0.3s ease;
-}
-.card img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-.card .card-body {
-  padding: 1.5rem;
-  text-align: center;
-  z-index: 1;
-}
-.card .card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-.card .card-price {
-  transition: color 0.3s ease;
+/* Branch styling */
+.branch {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background-color: #007bff;
+	color: #fff;
+	padding: 5px 10px;
+	font-size: 0.9rem;
+	font-weight: bold;
+	border-radius: 8px;
+	z-index: 2;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.image {
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  position: relative;
+/* Card container */
+.card {
+	position: relative;
+	border: 1px solid #ddd;
+	border-radius: 15px;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	background-color: #f8f9fa;
 }
+
+.card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover .card-title,
+.card:hover .card-price {
+	color: #007bff;
+}
+
+/* Image container with fixed height */
+.image {
+	width: 100%;
+	height: 300px;
+	overflow: hidden;
+	position: relative;
+}
+
 .image img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+/* Card body */
+.card .card-body {
+	padding: 1.5rem;
+	text-align: center;
+}
+
+.card .card-title {
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.card .card-price {
+	font-size: 1.1rem;
+	color: #333;
+}
+
+/* Hover transition */
+.card .card-title,
+.card .card-price {
+	transition: color 0.3s ease;
+}
+
+.btn-box {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	margin-top: 45px;
+}
+
+.btn-box a {
+	display: inline-block;
+	padding: 10px 40px;
+	background-color: #f7444e;
+	border: 1px solid #f7444e;
+	color: #ffffff;
+	border-radius: 0;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.btn-box a:hover {
+	background-color: transparent;
+	color: #f7444e;
 }
