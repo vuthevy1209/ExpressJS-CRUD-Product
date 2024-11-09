@@ -119,3 +119,17 @@
 	border-radius: 4px;
 	outline: none;
 }
+
+.image--other {
+	width: 100%;
+	height: 150px;
+	overflow: hidden;
+	border-radius: 10px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease;
+}
+
+.image--other:hover {
+	transform: translateY(-10px);
+	border: 1px solid #f20707;
+}

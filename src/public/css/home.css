@@ -1,4 +1,3 @@
-/* Branch styling */
 .branch {
 	position: absolute;
 	top: 10px;
@@ -15,7 +14,8 @@
 
 /* Card container */
 .card {
-	position: relative;
+	width: 100%;
+	height: 280px;
 	border: 1px solid #ddd;
 	border-radius: 15px;
 	transition: all 0.3s ease;
@@ -35,28 +35,31 @@
 }
 
 /* Image container with fixed height */
-.image {
+.product-image {
 	width: 100%;
-	height: 300px;
+	height: 150px;
 	overflow: hidden;
 	position: relative;
 }
 
-.image img {
+.product-image img {
 	width: 100%;
-	height: 100%;
-	object-fit: contain;
+	object-fit: cover;
 }
 
 /* Card body */
 .card .card-body {
-	padding: 1.5rem;
+	padding: 20px;
 	text-align: center;
+	width: 100%;
 }
 
 .card .card-title {
 	font-size: 1.2rem;
 	font-weight: bold;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .card .card-price {

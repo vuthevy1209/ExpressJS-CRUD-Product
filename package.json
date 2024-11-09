@@ -2,7 +2,7 @@
     "name": "expressjs-blog",
     "version": "1.0.0",
     "main": "src/index.js",
-    "engines": { 
+    "engines": {
         "node": "14.x"
     },
     "scripts": {
@@ -30,6 +30,7 @@
         "express": "^4.21.1",
         "express-handlebars": "^8.0.1",
         "handlebars-helpers": "^0.10.0",
+        "mongodb": "^6.10.0",
         "mongoose": "^6.13.3",
         "mongoose-slug-generator": "^1.0.4",
         "sass": "^1.80.6"

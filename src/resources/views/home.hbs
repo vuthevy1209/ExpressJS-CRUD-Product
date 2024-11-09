@@ -17,18 +17,18 @@
         </h2>
     </div>
 
-    <div class="row">
+    <div class="row mt-5">
         {{#each products}}
-        <div class="col-lg-4 col-md-12 mb-4">
+        <div class="col-lg-3 col-md-6 mb-4">
             <a href="/products/{{this.slug}}" style="text-decoration: none;">
-                <div class=" card">
+                <div class="card">
                     <div class="branch">{{this.brand}}</div>
-                    <div class="image">
-                        <img src="{{this.image}}" alt="Product" class="w-100" />
+                    <div class="product-image">
+                        <img src="{{this.image}}" alt="Product" />
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title mb-3 text-center">{{this.name}}</h5>
-                        <h6 class="card- mb-3 text-center">${{this.price}}</h6>
+                        <h5 class="card-title text-center">{{this.name}}</h5>
+                        <h6 class="card-price text-center">${{this.price}}</h6>
                     </div>
                 </div>
             </a>
@@ -36,8 +36,8 @@
         {{/each}}
     </div>
     <div class="btn-box">
-        <a href="/home">
-            View All products
+        <a href="/products">
+            Xem thêm sản phẩm
         </a>
     </div>
 </div>
