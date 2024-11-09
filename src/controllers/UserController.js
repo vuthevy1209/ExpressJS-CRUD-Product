@@ -1,5 +1,5 @@
 // controllers/UserController.js
-const userService = require('../services/userService');
+const userService = require('../services/UserService');
 
 class UserController {
     // [GET] /GA03/login
