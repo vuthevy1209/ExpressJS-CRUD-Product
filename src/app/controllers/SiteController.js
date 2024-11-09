@@ -1,5 +1,5 @@
 // controllers/SiteController.js
-const siteService = require('../services/siteService');
+const siteService = require('../services/SiteService');
 const { mutipleMongooseToObject } = require('../../utils/mongoose');
 
 class SiteController {

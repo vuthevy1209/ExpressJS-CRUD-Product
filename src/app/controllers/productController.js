@@ -1,5 +1,5 @@
 // controllers/ProductController.js
-const productService = require('../services/productService');
+const productService = require('../services/ProductService');
 const { mongooseToObject } = require('../../utils/mongoose');
 
 class ProductController {
