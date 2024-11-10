@@ -1,4 +1,3 @@
-// controllers/UserController.js
 const userService = require('../services/UserService');
 
 class UserController {

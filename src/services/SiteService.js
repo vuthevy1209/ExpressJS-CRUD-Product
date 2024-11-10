@@ -1,8 +1,7 @@
-// services/siteService.js
 const Product = require('../models/Product');
 
 class SiteService {
-    // Lấy tất cả sản phẩm
+    // get all products
     async getAllProducts() {
         return await Product.find({});
     }

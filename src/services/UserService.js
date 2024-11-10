@@ -1,19 +1,18 @@
-// services/userService.js
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 class UserService {
-    // Tìm user theo username
+    // find user by username
     async findUserByUsername(username) {
         return await User.findOne({ username });
     }
 
-    // So sánh password
+    // compare password
     async validatePassword(inputPassword, storedPassword) {
         return await bcrypt.compare(inputPassword, storedPassword);
     }
 
-    // Tạo mới một user
+    // create a new user
     async createUser(username, password) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
