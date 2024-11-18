@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const { engine } = require('express-handlebars');
+const exphbs = require('express-handlebars'); // Add this line
 const router = require('./routes/index.js');
 const db = require('./config/database');
 const hbsHelpers = require('handlebars-helpers');
@@ -26,6 +27,16 @@ app.use(express.json());
 app.engine('.hbs', hbs);
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Register Handlebars as the view engine
+app.engine('hbs', exphbs.engine({
+    extname: 'hbs',
+    helpers: {
+        includes: function(array, value) {
+            return array && array.includes(value);
+        }
+    }
+}));
 
 // Route init
 router(app);

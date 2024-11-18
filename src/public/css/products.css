@@ -59,7 +59,7 @@
 }
 
 /* Branch styling */
-.branch {
+.brand {
 	position: absolute;
 	top: 10px;
 	left: 10px;
@@ -158,4 +158,8 @@
 .btn-box a:hover {
 	background-color: transparent;
 	color: #f7444e;
+}
+
+.form-check-input {
+	width: auto;
 }

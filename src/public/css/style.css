@@ -633,7 +633,7 @@ a:focus {
 }
 
 .subscribe_section .subscribe_form form input {
-	width: 100%;
+	/*width: 100%;*/
 	height: 60px;
 	border: none;
 	border-radius: 90px;
