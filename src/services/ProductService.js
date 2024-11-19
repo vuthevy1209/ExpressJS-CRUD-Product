@@ -22,6 +22,20 @@ class ProductService {
         const product = new Product(data);
         return await product.save();
     }
+
+    // search products
+    async search({ name, brand, category, priceMin, priceMax, inventoryQuantityMin, inventoryQuantityMax }) {
+        const query = {};
+        if (name) query.name = { $regex: name, $options: 'i' };
+        if (brand) query.brand = brand;
+        if (category) query.category = category;
+        if (priceMin) query.price = { $gte: priceMin };
+        if (priceMax) query.price = { ...query.price, $lte: priceMax };
+        if (inventoryQuantityMin) query.inventory_quantity = { $gte: inventoryQuantityMin };
+        if (inventoryQuantityMax) query.inventory_quantity = { ...query.inventory_quantity, $lte: inventoryQuantityMax };
+
+        return await Product.find(query);
+    }
 }
 
 module.exports = new ProductService();
