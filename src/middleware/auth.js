@@ -23,6 +23,7 @@ async function checkAuth(req, res, next) {
 
                     if (decodedRefreshToken.exp < currentTime) {
                         // Refresh token is expired
+                        refreshTokenService.deleteRefreshToken(refreshToken);
                         req.user = null;
                         return next();
                     }
@@ -31,9 +32,18 @@ async function checkAuth(req, res, next) {
                     if (userId) {
                         const refreshedUser = await userService.findById(userId);
                         if (refreshedUser) {
-                            // Generate a new access token and set it in the response
+                            // Generate a new access token 
                             const newToken = tokenUtil.generateAccessToken(refreshedUser);
                             res.cookie('accessToken', newToken, { httpOnly: true, secure: true });
+
+                            // gen new refresh token
+                            const newRefreshToken = tokenUtil.generateNewRefreshToken(decodedRefreshToken);
+                            // Save the new refresh token
+                            refreshTokenService.saveRefreshToken(refreshedUser._id, newRefreshToken, decodedRefreshToken.exp); 
+                            res.cookie('refreshToken', newRefreshToken, { httpOnly: true, secure: true });
+
+                            refreshTokenService.deleteRefreshToken(refreshToken); // Delete the old refresh token
+                            
 
                             req.user = refreshedUser; // Attach refreshed user
 
@@ -49,7 +59,6 @@ async function checkAuth(req, res, next) {
                 return next();
             }
         } else {
-            console.log('User CHECK 1', user);
             req.user = user;
             return next();
         }

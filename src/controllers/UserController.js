@@ -14,34 +14,34 @@ class UserController {
     async login(req, res) {
         try {
             const { username, password } = req.body;
-            const user = await userService.findUserByUsername(username);
-            if (!user) {
+            const foundUser = await userService.findUserByUsername(username);
+            if (!foundUser) {
                 return res.status(400).render('auth/login', { layout: 'auth', title: 'Login', error: 'Tài khoản không tồn tại' });
             }
 
-            const isMatch = await userService.validatePassword(password, user.password);
+            const isMatch = await userService.validatePassword(password, foundUser.password);
             if (!isMatch) {
                 return res.status(400).render('auth/login', { layout: 'auth', title: 'Login', error: 'Mật khẩu không chính xác' });
             }
 
-
             // Generate tokens
-            const accessToken = tokenUtil.generateAccessToken(user); // Generate access token
-            const refreshToken = tokenUtil.generateRefreshToken(user); // Generate refresh token
-
+            const accessToken = tokenUtil.generateAccessToken(foundUser); // Generate access token
+            const refreshToken = tokenUtil.generateRefreshToken(foundUser); // Generate refresh token
             // save refresh token
 
-            refreshTokenService.saveRefreshToken(user._id, refreshToken,Date.now() + 86400000); // expires in 24 hours
+            refreshTokenService.saveRefreshToken(foundUser._id, refreshToken,Date.now() + 86400000); // expires in 24 hours
             
             res.cookie('accessToken', accessToken, { httpOnly: true, secure: true }); // Set the access token in a cookie
             res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true }); // Set the refresh token in a cookie
+            
             res.cookie('user',{
-                username: user.username,
-                role: user.role
+                username: foundUser.username,
+                role: foundUser.role
             },{httpOnly: true, secure: true});
-            res.locals.user = res.cookies.user;
+
             res.redirect('/home');
         } catch (error) {
+            console.log(error);
             res.status(500).send('Đã xảy ra lỗi');
         }
     }
@@ -83,46 +83,42 @@ class UserController {
     // [POST] /register
     async register(req, res) {
         try {
-            const { username, password, confirmPassword } = req.body;
+            const { username, password, confirmPassword,email } = req.body;
 
             // Validate email
-            if (!emailRegex.test(username)) {
-                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register', error: 'Email không hợp lệ' });
+            if (!emailRegex.test(email)) {
+                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register',fail: true, message: 'Email không hợp lệ' });
             }
 
             // Validate password
             if (!passwordRegex.test(password)) {
-                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register', error: 'Mật khẩu không hợp lệ' });
+                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register',fail: true, message: 'Mật khẩu chứa ít nhất 8 ký tự, bao gồm chữ cái viết hoa,thường và số' });
             }
 
 
             if (password !== confirmPassword) {
-                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register', error: 'Mật khẩu không khớp' });
+                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register',fail: true, message: 'Mật khẩu không khớp' });
             }
 
-            await userService.createUser(username, password);
+
+            if(await userService.findUserByUsername(username)){
+                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register',fail: true, message: 'Username đã tồn tại' });
+            }
+
+            await userService.createUser(username, password,email);
             res.redirect('/login');
         } catch (error) {
-            res.status(500).send('Đã xảy ra lỗi');
+            console.log(error);
+            return res.status(500).send('Đã xảy ra lỗi');
         }
     }
 
     // [GET] /logout
     async logout(req, res) {
         try {
-            const refreshToken = req.cookies.refreshToken;
-            if (refreshToken) {
-                console.log('Deleting refresh token');
-                
-                await refreshTokenService.deleteRefreshToken(refreshToken);
-            }
             cleanUpService.cleanUp(req, res);
-
-            console.log(req.cookies);
-
             res.redirect('/home');
         } catch (error) {
-            console.log(error);
             res.status(500).send('Đã xảy ra lỗi');
         }
     }

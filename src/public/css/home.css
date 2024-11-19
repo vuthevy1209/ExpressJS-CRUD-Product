@@ -101,8 +101,8 @@
 
 .discount {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    bottom: 5px;
+    right: 10px;
     background-color: red;
     color: white;
     padding: 5px 10px;

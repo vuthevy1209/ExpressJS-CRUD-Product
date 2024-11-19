@@ -164,6 +164,15 @@
 	width: auto;
 }
 
-.form-check-input {
-	width: auto;
+.discount {
+    position: absolute;
+    bottom: 5px;
+	right: 5px;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 1;
 }

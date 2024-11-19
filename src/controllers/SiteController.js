@@ -8,7 +8,7 @@ class SiteController {
             let products = await siteService.getAllProducts();
             products = mutipleMongooseToObject(products);
 
-            res.render('home', { products});
+            res.render('home', { products, user: res.locals.user });
         } catch (err) {
             console.error('Error fetching products:', err);
             res.status(400).json({ error: 'ERROR!!!' });

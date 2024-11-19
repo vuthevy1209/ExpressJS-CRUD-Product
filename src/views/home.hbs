@@ -22,16 +22,18 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <a href="/products/{{this.slug}}" style="text-decoration: none;">
                 <div class="card">
-                    {{#if (gt this.sale 0)}}
+                    
                     <div class="brand">{{this.brand}}</div>
-                    {{/if}}
+                    
                     <div class="product-image">
-                        <span class="discount">{{this.sale}}% off</span>
                         <img src="{{this.image}}" alt="Product" />
                     </div>
                     <div class="card-body">
                         <h5 class="card-title text-center">{{this.name}}</h5>
                         <h6 class="card-price text-center">${{this.price}}</h6>
+                        {{#if (gt this.sale 0)}}
+                        <span class="discount">{{this.sale}}% off</span>
+                        {{/if}}
                     </div>
                 </div>
             </a>
