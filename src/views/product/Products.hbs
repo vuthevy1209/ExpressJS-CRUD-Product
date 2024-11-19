@@ -1,124 +1,140 @@
 <!-- src/views/product/Products.hbs -->
 <form id="searchForm" class="" method="GET" action="/products/search">
     <div class="container mt-3 mb-3">
-    <div class="row">
-        <div class="col-2">
-            <h3>Bộ Lọc Tìm kiếm</h3>
+        <div class="row">
+            <div class="col-2">
+                <h3>Bộ Lọc Tìm kiếm</h3>
 
-            <hr class="my-3">
+                <hr class="my-3">
 
-            <div class="filter-group">
-                <label for="category" style="font-weight: 600; color: red;">Theo Danh Mục</label>
+                <div class="filter-group">
+                    <label for="category" style="font-weight: 600; color: red;">Theo Danh Mục</label>
 
-                <!-- checkbox -->
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" name="category" value="co-so-du-lieu" id="defaultCheck1" {{#if (includes query.category 'co-so-du-lieu')}}checked{{/if}}>
-                    <label class="form-check-label" for="defaultCheck1">
-                        Cơ sở dữ liệu
-                    </label>
+                    <!-- checkbox -->
+                    <div class="form-check" style="font-weight: 400;">
+                        <input class="form-check-input" type="checkbox" name="category" value="co-so-du-lieu"
+                            id="defaultCheck1" {{#if (includes query.category 'co-so-du-lieu' )}}checked{{/if}}>
+                        <label class="form-check-label" for="defaultCheck1">
+                            Cơ sở dữ liệu
+                        </label>
+                    </div>
+                    <div class="form-check" style="font-weight: 400;">
+                        <input class="form-check-input" type="checkbox" name="category" value="lap-trinh"
+                            id="defaultCheck2" {{#if (includes query.category 'lap-trinh' )}}checked{{/if}}>
+                        <label class="form-check-label" for="defaultCheck2">
+                            Lập trình
+                        </label>
+                    </div>
+                    <div class="form-check" style="font-weight: 400;">
+                        <input class="form-check-input" type="checkbox" name="category" value="thuat-toan"
+                            id="defaultCheck3" {{#if (includes query.category 'thuat-toan' )}}checked{{/if}}>
+                        <label class="form-check-label" for="defaultCheck3">
+                            Thuật toán
+                        </label>
+                    </div>
                 </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" name="category" value="lap-trinh" id="defaultCheck2" {{#if (includes query.category 'lap-trinh')}}checked{{/if}}>
-                    <label class="form-check-label" for="defaultCheck2">
-                        Lập trình
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" name="category" value="thuat-toan" id="defaultCheck3" {{#if (includes query.category 'thuat-toan')}}checked{{/if}}>
-                    <label class="form-check-label" for="defaultCheck3">
-                        Thuật toán
-                    </label>
-                </div>
-            </div>
-            <hr class="my-3">
-            <div class="filter-group">
-                <label for="brand" style="font-weight: 600; color: red;">Theo Nhãn Hàng</label>
+                <hr class="my-3">
+                <div class="filter-group">
+                    <label for="brand" style="font-weight: 600; color: red;">Theo Nhãn Hàng</label>
 
-                <!-- checkbox -->
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" name="brand" value="oracle" id="defaultCheck6" {{#if (includes query.brand 'oracle')}}checked{{/if}}>
-                    <label class="form-check-label" for="defaultCheck6">
-                        Oracle
-                    </label>
+                    <!-- checkbox -->
+                    <div class="form-check" style="font-weight: 400;">
+                        <input class="form-check-input" type="checkbox" name="brand" value="oracle" id="defaultCheck6"
+                            {{#if (includes query.brand 'oracle' )}}checked{{/if}}>
+                        <label class="form-check-label" for="defaultCheck6">
+                            Oracle
+                        </label>
+                    </div>
+                    <div class="form-check" style="font-weight: 400;">
+                        <input class="form-check-input" type="checkbox" name="brand" value="jetbrains"
+                            id="defaultCheck7" {{#if (includes query.brand 'jetbrains' )}}checked{{/if}}>
+                        <label class="form-check-label" for="defaultCheck7">
+                            JetBrains
+                        </label>
+                    </div>
+                    <div class="form-check" style="font-weight: 400;">
+                        <input class="form-check-input" type="checkbox" name="brand" value="apple" id="defaultCheck8"
+                            {{#if (includes query.brand 'apple' )}}checked{{/if}}>
+                        <label class="form-check-label" for="defaultCheck8">
+                            Apple
+                        </label>
+                    </div>
+                    <div class="form-check" style="font-weight: 400;">
+                        <input class="form-check-input" type="checkbox" name="brand" value="microsoft"
+                            id="defaultCheck9" {{#if (includes query.brand 'microsoft' )}}checked{{/if}}>
+                        <label class="form-check-label" for="defaultCheck9">
+                            Microsoft
+                        </label>
+                    </div>
                 </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" name="brand" value="jetbrains" id="defaultCheck7" {{#if (includes query.brand 'jetbrains')}}checked{{/if}}>
-                    <label class="form-check-label" for="defaultCheck7">
-                        JetBrains
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" name="brand" value="apple" id="defaultCheck8" {{#if (includes query.brand 'apple')}}checked{{/if}}>
-                    <label class="form-check-label" for="defaultCheck8">
-                        Apple
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" name="brand" value="microsoft" id="defaultCheck9" {{#if (includes query.brand 'microsoft')}}checked{{/if}}>
-                    <label class="form-check-label" for="defaultCheck9">
-                        Microsoft
-                    </label>
-                </div>
-            </div>
-            <hr class="my-3">
+                <hr class="my-3">
 
-            <div class="filter-group">
-                <label for="price-range" style="font-weight: 600; color: red;">Khoảng giá</label>
-                <div class="form-group">
-                    <input type="number" class="form-control" id="price-min" name="priceMin" placeholder="Từ" min="0" value="{{query.priceMin}}">
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" id="price-max" name="priceMax" placeholder="Đến" min="0" value="{{query.priceMax}}">
-                </div>
-            </div>
-
-            <div class="filter-group">
-                <label for="price-range" style="font-weight: 600; color: red;">Số lượng tồn kho</label>
-                <div class="form-group">
-                    <input type="number" class="form-control" id="inventory-quantity-min" name="inventoryQuantityMin" placeholder="Từ" min="0" value="{{query.inventoryQuantityMin}}">
-                </div>
-                <div class="form-group">
-                    <input type="number" class="form-control" id="inventory-quantity-max" name="inventoryQuantityMax" placeholder="Đến" min="0" value="{{query.inventoryQuantityMax}}">
-                </div>
-            </div>
-
-        </div>
-        <div class="col-10">
-            <div class="row">
-                <div class="col-12 mb-3">
-                    <div class="row">
-                        <div class="col-10">
-                            <input type="text" name="name" placeholder="Search for products" class="search-input" value="{{query.name}}">
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-primary" type="submit">Search</button>
-                        </div>
+                <div class="filter-group">
+                    <label for="price-range" style="font-weight: 600; color: red;">Khoảng giá</label>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="price-min" name="priceMin" placeholder="Từ"
+                            min="0" value="{{query.priceMin}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="price-max" name="priceMax" placeholder="Đến"
+                            min="0" value="{{query.priceMax}}">
                     </div>
                 </div>
 
-                <div class="row pl-4 pr-4 mt-3">
-                    {{#each productList}}
-                    <div class="col-lg-3 col-md-6 mb-4">
-                        <a href="/products/{{this.slug}}" style="text-decoration: none;">
-                            <div class="card">
-                                <div class="brand">{{this.brand}}</div>
-                                <div class="product-image">
-                                    <img src="{{this.image}}" alt="Product" />
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">{{this.name}}</h5>
-                                    <h6 class="card-price text-center">${{this.price}}</h6>
-                                </div>
+                <div class="filter-group">
+                    <label for="price-range" style="font-weight: 600; color: red;">Số lượng tồn kho</label>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="inventory-quantity-min"
+                            name="inventoryQuantityMin" placeholder="Từ" min="0" value="{{query.inventoryQuantityMin}}">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="inventory-quantity-max"
+                            name="inventoryQuantityMax" placeholder="Đến" min="0"
+                            value="{{query.inventoryQuantityMax}}">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-10">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="row">
+                            <div class="col-10">
+                                <input type="text" name="name" placeholder="Search for products" class="search-input"
+                                    value="{{query.name}}">
                             </div>
-                        </a>
+                            <div class="col-2">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
                     </div>
-                    {{/each}}
-                </div>
 
+                    <div class="row pl-4 pr-4 mt-3">
+                        {{#each productList}}
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <a href="/products/{{this.slug}}" style="text-decoration: none;">
+                                <div class="card">
+                                    <div class="brand">{{this.brand}}</div>
+                                    <div class="product-image">
+                                        <img src="{{this.image}}" alt="Product" />
+                                    </div>
+                                    <div class="card-body">
+                                        {{#if (gt this.sale 0)}}
+                                        <span class="discount">{{this.sale}}% off</span>
+                                        {{/if}}
+                                        <h5 class="card-title text-center">{{this.name}}</h5>
+                                        <h6 class="card-price text-center">${{this.price}}</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {{/each}}
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 </form>
 
 <link rel="stylesheet" href="/css/products.css">

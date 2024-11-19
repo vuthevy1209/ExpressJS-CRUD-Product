@@ -13,14 +13,19 @@ class UserService {
     }
 
     // create a new user
-    async createUser(username, password) {
+    async createUser(username, password,email) {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
             username,
-            email: username,
+            email,
             password: hashedPassword,
+            
         });
         return await newUser.save();
+    }
+
+    async findById(id) {
+        return await User.findById(id);
     }
 }
 
