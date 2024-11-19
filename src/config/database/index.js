@@ -3,7 +3,9 @@ const mongoose = require('mongoose');
 // Set Mongoose strictQuery option
 mongoose.set('strictQuery', true);
 
-const uri = "mongodb+srv://root:ABC123@ga03.dhlfb.mongodb.net/GA03?retryWrites=true&w=majority&appName=GA03";
+
+const uri = "mongodb+srv://root:ABC123@ga03.dhlfb.mongodb.net/test_auth?retryWrites=true&w=majority&appName=test_auth";
+
 //const uri = "mongodb://localhost:27017/GA03";
 
 async function connect() {

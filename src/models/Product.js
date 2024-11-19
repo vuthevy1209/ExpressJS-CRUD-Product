@@ -15,6 +15,7 @@ const Product = new Schema({
     brand: { type: String, maxLength: 255 },
     category: { type: String, maxLength: 255 },
     inventory_quantity: { type: Number, required: true },
+    sale: { type: Number, default: 0 },
 }, {
     timestamps: true,
 });

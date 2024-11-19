@@ -22,6 +22,10 @@ class UserService {
         });
         return await newUser.save();
     }
+
+    async findById(id) {
+        return await User.findById(id);
+    }
 }
 
 module.exports = new UserService();

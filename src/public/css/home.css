@@ -98,3 +98,16 @@
 	background-color: transparent;
 	color: #f7444e;
 }
+
+.discount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 1;
+}

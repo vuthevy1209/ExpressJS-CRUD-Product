@@ -1,4 +1,6 @@
-<div class="container mt-3 mb-3">
+<!-- src/views/product/Products.hbs -->
+<form id="searchForm" class="" method="GET" action="/products/search">
+    <div class="container mt-3 mb-3">
     <div class="row">
         <div class="col-2">
             <h3>Bộ Lọc Tìm kiếm</h3>
@@ -10,104 +12,73 @@
 
                 <!-- checkbox -->
                 <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="dien-thoai" id="defaultCheck1">
+                    <input class="form-check-input" type="checkbox" name="category" value="co-so-du-lieu" id="defaultCheck1" {{#if (includes query.category 'co-so-du-lieu')}}checked{{/if}}>
                     <label class="form-check-label" for="defaultCheck1">
-                        Điện Thoại
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="may-tinh" id="defaultCheck2">
-                    <label class="form-check-label" for="defaultCheck2">
-                        Máy Tính
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck3">
-                    <label class="form-check-label" for="defaultCheck3">
-                        Phụ Kiện
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck4">
-                    <label class="form-check-label" for="defaultCheck4">
-                        Siêu Nhân
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck5">
-                    <label class="form-check-label" for="defaultCheck5">
                         Cơ sở dữ liệu
                     </label>
                 </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" name="category" value="lap-trinh" id="defaultCheck2" {{#if (includes query.category 'lap-trinh')}}checked{{/if}}>
+                    <label class="form-check-label" for="defaultCheck2">
+                        Lập trình
+                    </label>
+                </div>
+                <div class="form-check" style="font-weight: 400;">
+                    <input class="form-check-input" type="checkbox" name="category" value="thuat-toan" id="defaultCheck3" {{#if (includes query.category 'thuat-toan')}}checked{{/if}}>
+                    <label class="form-check-label" for="defaultCheck3">
+                        Thuật toán
+                    </label>
+                </div>
             </div>
             <hr class="my-3">
             <div class="filter-group">
-                <label for="category" style="font-weight: 600; color: red;">Theo Nơi Bán</label>
+                <label for="brand" style="font-weight: 600; color: red;">Theo Nhãn Hàng</label>
 
                 <!-- checkbox -->
                 <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="dien-thoai" id="defaultCheck6">
+                    <input class="form-check-input" type="checkbox" name="brand" value="oracle" id="defaultCheck6" {{#if (includes query.brand 'oracle')}}checked{{/if}}>
                     <label class="form-check-label" for="defaultCheck6">
-                        TP Hồ Chí Minh
+                        Oracle
                     </label>
                 </div>
                 <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="may-tinh" id="defaultCheck7">
+                    <input class="form-check-input" type="checkbox" name="brand" value="jetbrains" id="defaultCheck7" {{#if (includes query.brand 'jetbrains')}}checked{{/if}}>
                     <label class="form-check-label" for="defaultCheck7">
-                        Hà Nội
+                        JetBrains
                     </label>
                 </div>
                 <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck8">
+                    <input class="form-check-input" type="checkbox" name="brand" value="apple" id="defaultCheck8" {{#if (includes query.brand 'apple')}}checked{{/if}}>
                     <label class="form-check-label" for="defaultCheck8">
-                        Đà Nẵng
+                        Apple
                     </label>
                 </div>
                 <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck9">
+                    <input class="form-check-input" type="checkbox" name="brand" value="microsoft" id="defaultCheck9" {{#if (includes query.brand 'microsoft')}}checked{{/if}}>
                     <label class="form-check-label" for="defaultCheck9">
-                        Cần Thơ
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck10">
-                    <label class="form-check-label" for="defaultCheck10">
-                        Hải Phòng
+                        Microsoft
                     </label>
                 </div>
             </div>
             <hr class="my-3">
-            <div class="filter-group">
-                <label for="category" style="font-weight: 600; color: red;">Đơn vị vận chuyển</label>
-
-                <!-- checkbox -->
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="dien-thoai" id="defaultCheck11">
-                    <label class="form-check-label" for="defaultCheck11">
-                        Giao Hàng Hỏa Tốc
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="may-tinh" id="defaultCheck12">
-                    <label class="form-check-label" for="defaultCheck12">
-                        Giao Hàng Nhanh
-                    </label>
-                </div>
-                <div class="form-check" style="font-weight: 400;">
-                    <input class="form-check-input" type="checkbox" value="phu-kien" id="defaultCheck13">
-                    <label class="form-check-label" for="defaultCheck13">
-                        Giao Hàng Tiết Kiệm
-                    </label>
-                </div>
-            </div>
 
             <div class="filter-group">
                 <label for="price-range" style="font-weight: 600; color: red;">Khoảng giá</label>
                 <div class="form-group">
-                    <input type="number" class="form-control" id="price-min" placeholder="Từ" min="0">
+                    <input type="number" class="form-control" id="price-min" name="priceMin" placeholder="Từ" min="0" value="{{query.priceMin}}">
                 </div>
                 <div class="form-group">
-                    <input type="number" class="form-control" id="price-max" placeholder="Đến" min="0">
+                    <input type="number" class="form-control" id="price-max" name="priceMax" placeholder="Đến" min="0" value="{{query.priceMax}}">
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label for="price-range" style="font-weight: 600; color: red;">Số lượng tồn kho</label>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="inventory-quantity-min" name="inventoryQuantityMin" placeholder="Từ" min="0" value="{{query.inventoryQuantityMin}}">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="inventory-quantity-max" name="inventoryQuantityMax" placeholder="Đến" min="0" value="{{query.inventoryQuantityMax}}">
                 </div>
             </div>
 
@@ -117,10 +88,10 @@
                 <div class="col-12 mb-3">
                     <div class="row">
                         <div class="col-10">
-                            <input type="text" placeholder="Search for products" class="search-input">
+                            <input type="text" name="name" placeholder="Search for products" class="search-input" value="{{query.name}}">
                         </div>
                         <div class="col-2">
-                            <button class="btn btn-primary" type="button">Search</button>
+                            <button class="btn btn-primary" type="submit">Search</button>
                         </div>
                     </div>
                 </div>
@@ -130,7 +101,7 @@
                     <div class="col-lg-3 col-md-6 mb-4">
                         <a href="/products/{{this.slug}}" style="text-decoration: none;">
                             <div class="card">
-                                <div class="branch">{{this.brand}}</div>
+                                <div class="brand">{{this.brand}}</div>
                                 <div class="product-image">
                                     <img src="{{this.image}}" alt="Product" />
                                 </div>
@@ -148,5 +119,6 @@
         </div>
     </div>
 </div>
+</form>
 
 <link rel="stylesheet" href="/css/products.css">
