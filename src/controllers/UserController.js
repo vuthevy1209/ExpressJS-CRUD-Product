@@ -16,12 +16,12 @@ class UserController {
             const { username, password } = req.body;
             const foundUser = await userService.findUserByUsername(username);
             if (!foundUser) {
-                return res.status(400).render('auth/login', { layout: 'auth', title: 'Login', error: 'Tài khoản không tồn tại' });
+                return res.status(400).render('auth/login', { layout: 'auth', title: 'Login', error: 'Account does not exist' });
             }
 
             const isMatch = await userService.validatePassword(password, foundUser.password);
             if (!isMatch) {
-                return res.status(400).render('auth/login', { layout: 'auth', title: 'Login', error: 'Mật khẩu không chính xác' });
+                return res.status(400).render('auth/login', { layout: 'auth', title: 'Login', error: 'Incorrect password' });
             }
 
             // Generate tokens
@@ -42,7 +42,7 @@ class UserController {
             res.redirect('/home');
         } catch (error) {
             console.log(error);
-            res.status(500).send('Đã xảy ra lỗi');
+            res.status(500).send('An error occurred');
         }
     }
     
@@ -83,33 +83,58 @@ class UserController {
     // [POST] /register
     async register(req, res) {
         try {
-            const { username, password, confirmPassword,email } = req.body;
+            const { username, password, confirmPassword, email } = req.body;
 
             // Validate email
             if (!emailRegex.test(email)) {
-                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register',fail: true, message: 'Email không hợp lệ' });
+                return res.status(400).render('auth/register', {
+                    layout: 'auth',
+                    title: 'Register',
+                    fail: true,
+                    message: 'Invalid email',
+                    username,
+                    email
+                });
             }
 
             // Validate password
             if (!passwordRegex.test(password)) {
-                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register',fail: true, message: 'Mật khẩu chứa ít nhất 8 ký tự, bao gồm chữ cái viết hoa,thường và số' });
+                return res.status(400).render('auth/register', {
+                    layout: 'auth',
+                    title: 'Register',
+                    fail: true,
+                    message: 'Password must contain at least 8 characters, including uppercase, lowercase letters, and numbers',
+                    username,
+                    email
+                });
             }
-
 
             if (password !== confirmPassword) {
-                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register',fail: true, message: 'Mật khẩu không khớp' });
+                return res.status(400).render('auth/register', {
+                    layout: 'auth',
+                    title: 'Register',
+                    fail: true,
+                    message: 'Passwords do not match',
+                    username,
+                    email
+                });
             }
 
-
-            if(await userService.findUserByUsername(username)){
-                return res.status(400).render('auth/register', { layout: 'auth', title: 'Register',fail: true, message: 'Username đã tồn tại' });
+            if (await userService.findUserByUsername(username)) {
+                return res.status(400).render('auth/register', {
+                    layout: 'auth',
+                    title: 'Register',
+                    fail: true,
+                    message: 'Username already exists',
+                    username,
+                    email
+                });
             }
-
-            await userService.createUser(username, password,email);
+            await userService.createUser(username, password, email);
             res.redirect('/login');
         } catch (error) {
             console.log(error);
-            return res.status(500).send('Đã xảy ra lỗi');
+            return res.status(500).send('An error occurred');
         }
     }
 
@@ -119,7 +144,7 @@ class UserController {
             cleanUpService.cleanUp(req, res);
             res.redirect('/home');
         } catch (error) {
-            res.status(500).send('Đã xảy ra lỗi');
+            res.status(500).send('An error occurred');
         }
     }
 }
