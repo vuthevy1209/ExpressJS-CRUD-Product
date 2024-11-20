@@ -22,7 +22,7 @@
                             <h2 class="product-title text-center">{{product.name}}</h2>
                         </div>
                         <div class="col-6">
-                            <h3 class="product-price text-center">Giá: ${{product.price}}</h3>
+                            <h3 class="product-price text-center">Price: ${{product.price}}</h3>
                         </div>
                     </div>
                 </div>
@@ -30,19 +30,19 @@
         </div>
         <div class="col-lg-6 col-md-12 mb-4">
             <div class="product-description">
-                <p><span>Mô tả: </span>{{product.description}}</p>
+                <p><span>Description: </span>{{product.description}}</p>
             </div>
 
             <div class="product-details">
-                <p><span>Thương hiệu: </span>
+                <p><span>Brand: </span>
                     <span class="brand">
                         {{product.brand}}
                     </span>
                 </p>
-                <p><span>Số lượng tồn kho: </span> {{product.inventory_quantity}} sản phẩm</p>
-                <p><span>Danh mục: </span>{{product.category}}</p>
-                <p><span>Ngày thêm sản phẩm: </span> 15/10/2024</p>
-                <p class="rating"><span>Đánh giá: </span> ★★★★☆ (4/5)</p>
+                <p><span>Inventory Quantity: </span> {{product.inventory_quantity}} products</p>
+                <p><span>Category: </span>{{product.category}}</p>
+<!--                <p><span>Ngày thêm sản phẩm: </span> 15/10/2024</p>-->
+                <p class="rating"><span>Rating: </span> ★★★★☆ (4/5)</p>
             </div>
             <hr>
         </div>
@@ -63,7 +63,7 @@
                 Add
             </a>
             <a href="#" class="btn-box btn-submit">
-                Mua ngay
+                Buy Now
             </a>
         </div>
     </div>
@@ -72,7 +72,7 @@
 </div>
 
 <div class="container mt-4 mb-5">
-    <h3>Ảnh khác:</h3>
+    <h3>Other Images:</h3>
     <div class="row">
         <div class="col-lg-3 col-md-6">
             <div class="image--other">
@@ -100,7 +100,7 @@
 
 <div class="container mt-4 mb-5">
     {{#if relatedProductList}}
-    <h3>Sản phẩm liên quan: </h3>
+    <h3>Related Products: </h3>
     <div class="row">
         {{#each relatedProductList}}
         <div class="col-lg-3 col-md-6 mb-3">
@@ -118,7 +118,7 @@
         {{/each}}
     </div>
     {{else}}
-    <h3>Sản phẩm liên quan: Không có</h3>
+    <h3>Related Products: None</h3>
     {{/if}}
 </div>
 
