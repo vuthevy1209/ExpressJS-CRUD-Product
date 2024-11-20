@@ -14,22 +14,13 @@ function route(app) {
     });
 
     // Protected Route: Renders a view instead of sending JSON
-    app.use('/protected', authorize(['Admin', 'User']), (req, res) => {
-        checkAuth(req, res, resolve);
+    app.use('/protected', authorize(['Admin', 'User']), (req, res,next) => {
         if(req.error){
-            CleanUpService.cleanUp(req, res, next);
-            // return res.status(401).json({
-            //     success: false,
-            //     message: 'Unauthorized'
-            // });
-            res.redirect('/login');
+            // CleanUpService.cleanUp(req, res, next);
+            return res.status(404).render('404', { title: 'Page Not Found' });
         }
         console.log('You are authorized');
-        // res.status(200).json({
-        //     success: true,
-        //     message: 'Protected Route',
-        //     user: req.user
-        // });
+        next();
     });
 
     // Route Definitions
