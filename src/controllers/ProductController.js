@@ -18,13 +18,13 @@ class ProductController {
     // [GET] /products/search
     async search(req, res) {
         try {
-            const { name, brand, category, priceMin, priceMax, inventoryQuantityMin, inventoryQuantityMax } = req.query;
-            const products = await productService.search({ name, brand, category, priceMin, priceMax, inventoryQuantityMin, inventoryQuantityMax });
+            const { nameOrDescription, brand, category, priceMin, priceMax, inventoryQuantityMin, inventoryQuantityMax } = req.query;
+            const products = await productService.search({ nameOrDescription, brand, category, priceMin, priceMax, inventoryQuantityMin, inventoryQuantityMax });
             const productList = products.map(product => mongooseToObject(product));
 
             res.render('product/Products', {
                 productList,
-                query: { name, brand, category, priceMin, priceMax, inventoryQuantityMin, inventoryQuantityMax }
+                query: { nameOrDescription, brand, category, priceMin, priceMax, inventoryQuantityMin, inventoryQuantityMax }
             });
         } catch (error) {
             console.error('Error searching products:', error);

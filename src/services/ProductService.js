@@ -24,9 +24,14 @@ class ProductService {
     }
 
     // search products
-    async search({ name, brand, category, priceMin, priceMax, inventoryQuantityMin, inventoryQuantityMax }) {
+    async search({ nameOrDescription, brand, category, priceMin, priceMax, inventoryQuantityMin, inventoryQuantityMax }) {
         const query = {};
-        if (name) query.name = { $regex: name, $options: 'i' };
+        if (nameOrDescription) {
+            query.$or = [
+                { name: { $regex: nameOrDescription, $options: 'i' } },
+                { description: { $regex: nameOrDescription, $options: 'i' } }
+            ];
+        }
         if (brand) query.brand = brand;
         if (category) query.category = category;
         if (priceMin) query.price = { $gte: priceMin };

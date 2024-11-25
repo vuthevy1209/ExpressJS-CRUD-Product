@@ -22,7 +22,7 @@
                             <h2 class="product-title text-center">{{product.name}}</h2>
                         </div>
                         <div class="col-6">
-                            <h3 class="product-price text-center">Giá: ${{product.price}}</h3>
+                            <h3 class="product-price text-center">Price: ${{product.price}}</h3>
                         </div>
                     </div>
                 </div>
@@ -30,19 +30,19 @@
         </div>
         <div class="col-lg-6 col-md-12 mb-4">
             <div class="product-description">
-                <p><span>Mô tả: </span>{{product.description}}</p>
+                <p><span>Description: </span>{{product.description}}</p>
             </div>
 
             <div class="product-details">
-                <p><span>Thương hiệu: </span>
+                <p><span>Brand: </span>
                     <span class="brand">
                         {{product.brand}}
                     </span>
                 </p>
-                <p><span>Số lượng tồn kho: </span> {{product.inventory_quantity}} sản phẩm</p>
-                <p><span>Danh mục: </span>{{product.category}}</p>
-                <p><span>Ngày thêm sản phẩm: </span> 15/10/2024</p>
-                <p class="rating"><span>Đánh giá: </span> ★★★★☆ (4/5)</p>
+                <p><span>Inventory Quantity: </span> {{product.inventory_quantity}} products</p>
+                <p><span>Category: </span>{{product.category}}</p>
+<!--                <p><span>Ngày thêm sản phẩm: </span> 15/10/2024</p>-->
+                <p class="rating"><span>Rating: </span> ★★★★☆ (4/5)</p>
             </div>
             <hr>
         </div>
@@ -59,14 +59,11 @@
             </div>
         </div>
         <div class="col-6">
-            <form action="/cart" method="POST" class="d-inline">
-                <input type="hidden" name="product_id" value="{{product.id}}">
-                <button type="submit" class="btn-box btn-submit">
-                    Add
-                </button>
-            </form>
-            <a href="#" class="btn-box btn-submit">
-                Mua ngay
+            <a href="#" class="btn-box btn-submit add-to-cart">
+                Add
+            </a>
+            <a href="#" class="btn-box btn-submit buy-now">
+                Buy Now
             </a>
         </div>
     </div>
@@ -75,7 +72,7 @@
 </div>
 
 <div class="container mt-4 mb-5">
-    <h3>Ảnh khác:</h3>
+    <h3>Other Images:</h3>
     <div class="row">
         <div class="col-lg-3 col-md-6">
             <div class="image--other">
@@ -103,7 +100,7 @@
 
 <div class="container mt-4 mb-5">
     {{#if relatedProductList}}
-    <h3>Sản phẩm liên quan: </h3>
+    <h3>Related Products: </h3>
     <div class="row">
         {{#each relatedProductList}}
         <div class="col-lg-3 col-md-6 mb-3">
@@ -121,11 +118,32 @@
         {{/each}}
     </div>
     {{else}}
-    <h3>Sản phẩm liên quan: Không có</h3>
+    <h3>Related Products: None</h3>
     {{/if}}
 </div>
 
 
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You need to log in to proceed this action.
+            </div>
+            <div class="modal-footer">
+                <a href="/login" class="btn btn-primary">Login</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <link rel="stylesheet" href="/css/productDetails.css">
 
@@ -134,6 +152,9 @@
         const decrementBtn = document.querySelector(".decrement");
         const incrementBtn = document.querySelector(".increment");
         const quantityInput = document.querySelector(".quantity-input");
+        const addToCartBtn = document.querySelector(".btn-submit.add-to-cart");
+        const buyNowBtn = document.querySelector(".btn-submit.buy-now");
+        const isLoggedIn = false; // Change this based on your authentication logic
 
         decrementBtn.addEventListener("click", () => {
             let currentValue = parseInt(quantityInput.value);
@@ -148,6 +169,23 @@
                 quantityInput.value = currentValue + 1;
             }
         });
-    });
 
+        function showLoginModal() {
+            $('#loginModal').modal('show');
+        }
+
+        addToCartBtn.addEventListener("click", (event) => {
+            if (!isLoggedIn) {
+                event.preventDefault();
+                showLoginModal();
+            }
+        });
+
+        buyNowBtn.addEventListener("click", (event) => {
+            if (!isLoggedIn) {
+                event.preventDefault();
+                showLoginModal();
+            }
+        });
+    });
 </script>

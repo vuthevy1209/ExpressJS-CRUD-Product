@@ -3,39 +3,38 @@
     <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-2">
-                <h3>Bộ Lọc Tìm kiếm</h3>
-
+                <h3>Search Filter</h3>
                 <hr class="my-3">
 
                 <div class="filter-group">
-                    <label for="category" style="font-weight: 600; color: red;">Theo Danh Mục</label>
+                    <label for="category" style="font-weight: 600; color: red;">By Category</label>
 
                     <!-- checkbox -->
                     <div class="form-check" style="font-weight: 400;">
-                        <input class="form-check-input" type="checkbox" name="category" value="co-so-du-lieu"
-                            id="defaultCheck1" {{#if (includes query.category 'co-so-du-lieu' )}}checked{{/if}}>
+                        <input class="form-check-input" type="checkbox" name="category" value="database"
+                            id="defaultCheck1" {{#if (includes query.category 'database' )}}checked{{/if}}>
                         <label class="form-check-label" for="defaultCheck1">
-                            Cơ sở dữ liệu
+                            Database
                         </label>
                     </div>
                     <div class="form-check" style="font-weight: 400;">
-                        <input class="form-check-input" type="checkbox" name="category" value="lap-trinh"
-                            id="defaultCheck2" {{#if (includes query.category 'lap-trinh' )}}checked{{/if}}>
+                        <input class="form-check-input" type="checkbox" name="category" value="programming"
+                            id="defaultCheck2" {{#if (includes query.category 'programming' )}}checked{{/if}}>
                         <label class="form-check-label" for="defaultCheck2">
-                            Lập trình
+                            Programming
                         </label>
                     </div>
                     <div class="form-check" style="font-weight: 400;">
-                        <input class="form-check-input" type="checkbox" name="category" value="thuat-toan"
-                            id="defaultCheck3" {{#if (includes query.category 'thuat-toan' )}}checked{{/if}}>
+                        <input class="form-check-input" type="checkbox" name="category" value="algorithm"
+                            id="defaultCheck3" {{#if (includes query.category 'algorithm' )}}checked{{/if}}>
                         <label class="form-check-label" for="defaultCheck3">
-                            Thuật toán
+                            Algorithm
                         </label>
                     </div>
                 </div>
                 <hr class="my-3">
                 <div class="filter-group">
-                    <label for="brand" style="font-weight: 600; color: red;">Theo Nhãn Hàng</label>
+                    <label for="brand" style="font-weight: 600; color: red;">By brand</label>
 
                     <!-- checkbox -->
                     <div class="form-check" style="font-weight: 400;">
@@ -70,26 +69,26 @@
                 <hr class="my-3">
 
                 <div class="filter-group">
-                    <label for="price-range" style="font-weight: 600; color: red;">Khoảng giá</label>
+                    <label for="price-range" style="font-weight: 600; color: red;">Price Range</label>
                     <div class="form-group">
-                        <input type="number" class="form-control" id="price-min" name="priceMin" placeholder="Từ"
+                        <input type="number" class="form-control" id="price-min" name="priceMin" placeholder="From"
                             min="0" value="{{query.priceMin}}">
                     </div>
                     <div class="form-group">
-                        <input type="number" class="form-control" id="price-max" name="priceMax" placeholder="Đến"
+                        <input type="number" class="form-control" id="price-max" name="priceMax" placeholder="To"
                             min="0" value="{{query.priceMax}}">
                     </div>
                 </div>
 
                 <div class="filter-group">
-                    <label for="price-range" style="font-weight: 600; color: red;">Số lượng tồn kho</label>
+                    <label for="price-range" style="font-weight: 600; color: red;">Inventory Quantity</label>
                     <div class="form-group">
                         <input type="number" class="form-control" id="inventory-quantity-min"
-                            name="inventoryQuantityMin" placeholder="Từ" min="0" value="{{query.inventoryQuantityMin}}">
+                            name="inventoryQuantityMin" placeholder="From" min="0" value="{{query.inventoryQuantityMin}}">
                     </div>
                     <div class="form-group">
                         <input type="number" class="form-control" id="inventory-quantity-max"
-                            name="inventoryQuantityMax" placeholder="Đến" min="0"
+                            name="inventoryQuantityMax" placeholder="To" min="0"
                             value="{{query.inventoryQuantityMax}}">
                     </div>
                 </div>
@@ -100,8 +99,8 @@
                     <div class="col-12 mb-3">
                         <div class="row">
                             <div class="col-10">
-                                <input type="text" name="name" placeholder="Search for products" class="search-input"
-                                    value="{{query.name}}">
+                                <input type="text" name="nameOrDescription" placeholder="Search by name or description" class="search-input"
+                                    value="{{query.nameOrDescription}}">
                             </div>
                             <div class="col-2">
                                 <button class="btn btn-primary" type="submit">Search</button>
