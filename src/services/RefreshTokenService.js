@@ -42,11 +42,11 @@ class RefreshTokenService {
     
 }
 
-// Schedule the task to run every day at midnight
-cron.schedule('0 0 * * *', async () => {
-    const refreshTokenService = new RefreshTokenService();
-    await refreshTokenService.deleteExpiredTokens();
-    console.log('Expired refresh tokens deleted');
-});
+// // Schedule the task to run every day at midnight
+// cron.schedule('0 0 * * *', async () => {
+//     const refreshTokenService = new RefreshTokenService();
+//     await refreshTokenService.deleteExpiredTokens();
+//     console.log('Expired refresh tokens deleted');
+// });
 
 module.exports = new RefreshTokenService();

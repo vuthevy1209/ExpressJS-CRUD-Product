@@ -59,9 +59,12 @@
             </div>
         </div>
         <div class="col-6">
-            <a href="#" class="btn-box btn-submit">
-                Add
-            </a>
+            <form action="/cart" method="POST" class="d-inline">
+                <input type="hidden" name="product_id" value="{{product.id}}">
+                <button type="submit" class="btn-box btn-submit">
+                    Add
+                </button>
+            </form>
             <a href="#" class="btn-box btn-submit">
                 Mua ngay
             </a>

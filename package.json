@@ -26,8 +26,7 @@
     "homepage": "https://github.com/vuthevy1209/ExpressJS-Blog#readme",
     "description": "",
     "dependencies": {
-        "bcrypt": "^5.1.1",
-        "cookie-parser": "^1.4.7",
+        "bcrypt": "^5.1.1",        
         "dotenv": "^16.4.5",
         "express": "^4.21.1",
         "express-handlebars": "^8.0.1",
@@ -37,7 +36,6 @@
         "mongoose-slug-generator": "^1.0.4",
         "node-cron": "^3.0.3",
         "passport": "^0.7.0",
-        "passport-jwt": "^4.0.1",
         "sass": "^1.80.6"
     },
     "devDependencies": {

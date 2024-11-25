@@ -1,87 +1,33 @@
-const passport = require('passport');
 const tokenUtil = require('../utils/token');
-const refreshTokenService = require('../services/RefreshTokenService');
-const userService = require('../services/UserService');
-const jwt = require('jsonwebtoken');
 
 
-async function checkAuth(req, res, next) {
-    const token = req.cookies.accessToken;
-    const refreshToken = req.cookies.refreshToken;
-
-    if (!token) {
-        req.user = null;
-        return next();
-    }
-
-    passport.authenticate('jwt', { session: false }, async (err, user, info) => {
-        if (err || !user) { // invalid or expired token
-            if (refreshToken) {
-                try {
-                    const decodedRefreshToken = jwt.decode(refreshToken);
-                    const currentTime = Math.floor(Date.now() / 1000);
-
-                    if (decodedRefreshToken.exp < currentTime) {
-                        // Refresh token is expired
-                        refreshTokenService.deleteRefreshToken(refreshToken);
-                        req.user = null;
-                        return next();
-                    }
-
-                    const userId = await refreshTokenService.findUserByRefreshToken(refreshToken);
-                    if (userId) {
-                        const refreshedUser = await userService.findById(userId);
-                        if (refreshedUser) {
-                            // Generate a new access token 
-                            const newToken = tokenUtil.generateAccessToken(refreshedUser);
-                            res.cookie('accessToken', newToken, { httpOnly: true, secure: true });
-
-                            // gen new refresh token
-                            const newRefreshToken = tokenUtil.generateNewRefreshToken(decodedRefreshToken);
-                            // Save the new refresh token
-                            refreshTokenService.saveRefreshToken(refreshedUser._id, newRefreshToken, decodedRefreshToken.exp); 
-                            res.cookie('refreshToken', newRefreshToken, { httpOnly: true, secure: true });
-
-                            refreshTokenService.deleteRefreshToken(refreshToken); // Delete the old refresh token
-                            
-
-                            req.user = refreshedUser; // Attach refreshed user
-
-                            return next(); // Proceed to the next middleware
-                        }
-                    }
-                } catch (err) {
-                    req.user = null;
-                    return next();
-                }
-            } else {
-                req.user = null;
-                return next();
-            }
-        } else {
-            req.user = user;
+async function refreshToken(req, res, next) {
+    try {
+        const { refreshToken } = req.cookies;
+        if (!refreshToken) {
+            req.authError='Refresh token is not provided';
             return next();
         }
-    })(req, res, next);
-}
 
-function authorize(roles = []) {
-    // roles param can be a single role string (e.g. 'Admin') or an array of roles (e.g. ['Admin', 'User'])
-    if (typeof roles === 'string') {
-        roles = [roles];
+        // Verify refresh token
+        const payload = await tokenUtil.verifyRefreshToken(refreshToken);
+
+        // Generate new access token
+        const newAccessToken = tokenUtil.generateAccessToken(userService.findById(payload.sub));
+
+        // Set the new access token in a cookie
+        res.cookie('accessToken', newAccessToken, { httpOnly: true, secure: true, sameSite: 'strict', maxAge: 5 * 60 * 1000 });
+
+        // Generate new refresh token
+        const newRefreshToken = tokenUtil.generateNewRefreshToken(payload);
+        refreshTokenService.deleteRefreshToken(refreshToken);
+        refreshTokenService.saveRefreshToken(payload.sub, newRefreshToken, payload.exp);
+        res.cookie('refreshToken', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'strict', maxAge: 7 * 24 * 60 * 60 * 1000 });
+        return next();
+
+    } catch (error) {
+        res.status(500).send('Đã xảy ra lỗi');
     }
-
-    return [
-        checkAuth,
-        (req, res, next) => {
-            if (!req.user || (roles.length && !roles.includes(req.user.role))) {
-                // res.status(403).json({ message: 'Forbidden' });
-                req.error = true;
-                return next();
-            }
-            next();
-        }
-    ];
 }
 
-module.exports = { checkAuth, authorize };
+module.exports = { refreshToken };
