@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 class UserService {
     // find user by username
-    async findUserByUsername(username) {
+    async findByUsername(username) {
         return await User.findOne({ username });
     }
 

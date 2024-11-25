@@ -1,25 +1,26 @@
-var JwtStrategy = require('passport-jwt').Strategy,
-    ExtractJwt = require('passport-jwt').ExtractJwt;
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const crypto = require('crypto');
 const userService = require('../../services/UserService');
 
-
-const opts = {
-    jwtFromRequest: ExtractJwt.fromExtractors([(req) => req.cookies.accessToken]), // Extract from cookie
-    secretOrKey: 'access_secret_key', // Use a secure secret in production
-    algorithms: ['HS256']
-};
-
-passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
-    try{
-        const user = await userService.findById(jwt_payload.sub);
-        if(user){
-            return done(null, user);
+passport.use(new LocalStrategy(async function verify(username, password, cb) {
+    try {
+        const user = await userService.getUserByUsername(username);
+        if (!user) {
+            return cb(null, false, { message: 'Incorrect username or password.' });
         }
-        return done(null, false);
-    }
-    catch(error){
-        return done(error, false);
+
+        crypto.pbkdf2(password, user.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+            if (err) {
+                return cb(err);
+            }
+            if (!crypto.timingSafeEqual(user.hashed_password, hashedPassword)) {
+                return cb(null, false, { message: 'Incorrect username or password.' });
+            }
+            return cb(null, user);
+        });
+    } catch (err) {
+        return cb(err);
     }
 }));
 

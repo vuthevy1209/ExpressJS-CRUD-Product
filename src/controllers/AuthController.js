@@ -1,7 +1,4 @@
 const userService = require('../services/UserService');
-const tokenUtil = require('../utils/token');
-const refreshTokenService = require('../services/RefreshTokenService');
-const cleanUpService = require('../services/CleanUpService');
 const { emailRegex, passwordRegex } = require('../utils/regex');
 
 class AuthController {
@@ -12,51 +9,7 @@ class AuthController {
 
     // [POST] /login
     async login(req, res) {
-        try {
-            const { username, password } = req.body;
-            const foundUser = await userService.findUserByUsername(username);
-            if (!foundUser) {
-                return res.status(400).render('auth/login', { layout: 'auth', title: 'Login', error: 'Tài khoản không tồn tại' });
-            }
-
-            const isMatch = await userService.validatePassword(password, foundUser.password);
-            if (!isMatch) {
-                return res.status(400).render('auth/login', { layout: 'auth', title: 'Login', error: 'Mật khẩu không chính xác' });
-            }
-
-            // Generate tokens
-            const accessToken = tokenUtil.generateAccessToken(foundUser);
-            const refreshToken = tokenUtil.generateRefreshToken(foundUser);
-            // expired after 7 day
-            refreshTokenService.saveRefreshToken(foundUser._id, refreshToken, Date.now() + 7 * 24 * 60 * 60 * 1000);
-
-            res.cookie('accessToken', accessToken,
-                {
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: 'strict',
-                    maxAge: 5 * 60 * 1000
-                });
-
-
-            res.cookie('refreshToken', refreshToken,
-                {
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: 'strict',
-                    maxAge: 7 * 24 * 60 * 60 * 1000
-                });
-
-            res.cookie('user', {
-                username: foundUser.username,
-                role: foundUser.role
-            }, { httpOnly: true, secure: true });
-
-            res.redirect('/home');
-        } catch (error) {
-            console.log(error);
-            res.status(500).send('Đã xảy ra lỗi');
-        }
+        
     }
 
 
