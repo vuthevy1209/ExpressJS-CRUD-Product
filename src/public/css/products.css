@@ -45,9 +45,9 @@
 }
 
 .btn-primary {
-	width: 100%;
+	/* width: 100%; */
 	padding: 10px;
-	background-color: #e31616;
+	/* background-color: #e31616; */
 	border: none;
 	color: white;
 	border-radius: 4px;
@@ -110,7 +110,7 @@
 
 /* Card body */
 .card .card-body {
-	padding: 20px;
+	padding: 20x;
 	text-align: center;
 	width: 100%;
 }

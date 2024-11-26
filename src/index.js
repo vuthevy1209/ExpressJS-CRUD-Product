@@ -36,6 +36,7 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: "mongodb+srv://root:ABC123@ga03.dhlfb.mongodb.net/test_auth?retryWrites=true&w=majority&appName=test_auth",
         collectionName: 'sessions', // Optional, default is 'sessions'
+        ttl: 60
       }),
   }));
 

@@ -3,6 +3,12 @@ const productRouter = require('./productRoute');
 const authRouter = require('./authRoute');
 
 function route(app) {
+
+    app.use(function(req, res, next) {
+        res.locals.user = req.user || null; // Attach `req.user` to `res.locals.user`
+        next();
+    });
+    
     // Route Definitions
     app.use('/products', productRouter);
 

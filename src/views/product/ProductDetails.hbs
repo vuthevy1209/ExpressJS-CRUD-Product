@@ -124,7 +124,7 @@
 
 
 
-<!-- Login Modal -->
+{{!-- <!-- Login Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -143,18 +143,23 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <link rel="stylesheet" href="/css/productDetails.css">
 
 <script>
+    
+    
+    {{!-- function showLoginModal() {
+        $('#loginModal').modal('show');
+    } --}}
+
     document.addEventListener("DOMContentLoaded", function () {
         const decrementBtn = document.querySelector(".decrement");
         const incrementBtn = document.querySelector(".increment");
         const quantityInput = document.querySelector(".quantity-input");
         const addToCartBtn = document.querySelector(".btn-submit.add-to-cart");
         const buyNowBtn = document.querySelector(".btn-submit.buy-now");
-        const isLoggedIn = false; // Change this based on your authentication logic
 
         decrementBtn.addEventListener("click", () => {
             let currentValue = parseInt(quantityInput.value);
@@ -169,10 +174,6 @@
                 quantityInput.value = currentValue + 1;
             }
         });
-
-        function showLoginModal() {
-            $('#loginModal').modal('show');
-        }
 
         addToCartBtn.addEventListener("click", (event) => {
             if (!isLoggedIn) {

@@ -24,68 +24,34 @@ class AuthController {
     }
 
 
-
-    // [POST] /register
-    // async register(req, res) {
-    //     try {
-    //         const { username, password, confirmPassword, email } = req.body;
-
-    //         // Validate email
-    //         if (!emailRegex.test(email)) {
-    //             return res.status(400).render('auth/register', { layout: 'auth', title: 'Register', fail: true, message: 'Email không hợp lệ' });
-    //         }
-
-    //         // Validate password
-    //         if (!passwordRegex.test(password)) {
-    //             return res.status(400).render('auth/register', { layout: 'auth', title: 'Register', fail: true, message: 'Mật khẩu chứa ít nhất 8 ký tự, bao gồm chữ cái viết hoa,thường và số' });
-    //         }
-
-
-    //         if (password !== confirmPassword) {
-    //             return res.status(400).render('auth/register', { layout: 'auth', title: 'Register', fail: true, message: 'Mật khẩu không khớp' });
-    //         }
-
-
-    //         if (await userService.findUserByUsername(username)) {
-    //             return res.status(400).render('auth/register', { layout: 'auth', title: 'Register', fail: true, message: 'Username đã tồn tại' });
-    //         }
-
-    //         await userService.createUser(username, password, email);
-    //         res.redirect('/login');
-    //     } catch (error) {
-    //         console.log(error);
-    //         return res.status(500).send('Đã xảy ra lỗi');
-    //     }
-    // }
-
         // [POST] /register
         async register(req, res) {
             try {
                 const { username, password, confirmPassword, email } = req.body;
     
-                // // Validate email
-                // if (!emailRegex.test(email)) {
-                //     return res.status(400).render('auth/register', {
-                //         layout: 'auth',
-                //         title: 'Register',
-                //         fail: true,
-                //         message: 'Invalid email',
-                //         username,
-                //         email
-                //     });
-                // }
+                // Validate email
+                if (!emailRegex.test(email)) {
+                    return res.status(400).render('auth/register', {
+                        layout: 'auth',
+                        title: 'Register',
+                        fail: true,
+                        message: 'Invalid email',
+                        username,
+                        email
+                    });
+                }
     
-                // // Validate password
-                // if (!passwordRegex.test(password)) {
-                //     return res.status(400).render('auth/register', {
-                //         layout: 'auth',
-                //         title: 'Register',
-                //         fail: true,
-                //         message: 'Password must contain at least 8 characters, including uppercase, lowercase letters, and numbers',
-                //         username,
-                //         email
-                //     });
-                // }
+                // Validate password
+                if (!passwordRegex.test(password)) {
+                    return res.status(400).render('auth/register', {
+                        layout: 'auth',
+                        title: 'Register',
+                        fail: true,
+                        message: 'Password must contain at least 8 characters, including uppercase, lowercase letters, and numbers',
+                        username,
+                        email
+                    });
+                }
     
                 if (password !== confirmPassword) {
                     return res.status(400).render('auth/register', {
@@ -119,8 +85,13 @@ class AuthController {
     // [GET] /logout
     async logout(req, res) {
         try {
-            //cleanUpService.cleanUp(req, res);
-            res.redirect('/home');
+            // it is a passport function to logout
+            // remove the user property from the request object 
+            // and in the session (JUST INFORMATION OF THE USER) - NOT FULLY DELETE THE SESSION
+            req.logout(function(err) { 
+                if (err) { return next(err); }
+                res.redirect('/home');
+              });
         } catch (error) {
             res.status(500).send('Đã xảy ra lỗi');
         }

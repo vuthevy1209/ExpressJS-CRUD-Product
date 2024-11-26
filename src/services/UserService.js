@@ -4,7 +4,6 @@ const User = require('../models/User');
 class UserService {
     // find user by username
     async findByUsername(username) {
-        console.log('find by user name');
         return await User.findOne({ username });
     }
 
@@ -15,14 +14,14 @@ class UserService {
 
     // create a new user
     async createUser(username, password, email) {
-        var salt = crypto.randomBytes(16).toString('hex');
+        const salt = crypto.randomBytes(16);
         crypto.pbkdf2(password, salt, 310000, 32, 'sha256', async function (err, hashedPassword) {
             if (err) { return next(err); }
 
             const newUser = new User({
             username,
             email,
-            password: hashedPassword.toString('hex'),
+            password: hashedPassword,
             salt: salt
             });
             return await newUser.save();
