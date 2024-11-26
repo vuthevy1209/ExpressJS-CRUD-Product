@@ -48,6 +48,8 @@ function myMap() {
 // Initialize dropdowns
 document.addEventListener('DOMContentLoaded', function() {
     var dropdowns = document.querySelectorAll('.dropdown-toggle');
+    
+
     dropdowns.forEach(function(dropdown) {
         dropdown.addEventListener('click', function(event) {
             event.preventDefault();
@@ -65,4 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-});
+
+    // Declare variables and functions in the global scope
+    
+    
+})

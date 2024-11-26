@@ -21,9 +21,6 @@ class TokenUtil {
     generateAccessToken(user) {
         const payload = { 
             sub: user._id,
-            name: user.username,
-            iss: 'expressLamToiDauKho',
-            role: user.role
         };
         return jwt.sign(payload, PRIVATE_ACCESS_KEY, this.AccessOptions);
     }
@@ -31,13 +28,27 @@ class TokenUtil {
     generateRefreshToken(user) {
         const payload = { 
             sub: user._id, 
-            username: user.username,
-            email: user.email,      // Optional, include only if needed
-            role: user.role
         };
         return jwt.sign(payload, PRIVATE_REFRESH_KEY,this.RefreshOptions); // Refresh token expires in 7 days
     }
 
+    generateNewRefreshToken(decodedRefreshToken) {
+        const payload = { 
+            sub: decodedRefreshToken.sub, 
+        };
+        return jwt.sign(payload, PRIVATE_REFRESH_KEY,{this:RefreshOptions[algorithm], expiresIn: decodedRefreshToken.expiresIn}); // Refresh token expires in 7 days
+    }
+
+    verifyRefreshToken = (refreshToken) => {
+        return new Promise((resolve, reject) => {
+          jwt.verify(refreshToken, refreshSecretKey, (err, payload) => {
+            if (err) {
+              return reject(new Error('Invalid refresh token'));
+            }
+            resolve(payload); // Return the decoded payload
+          });
+        });
+    }
 }
 
 module.exports = new TokenUtil();

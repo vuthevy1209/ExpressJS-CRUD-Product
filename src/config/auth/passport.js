@@ -1,29 +1,36 @@
-var JwtStrategy = require('passport-jwt').Strategy,
-    ExtractJwt = require('passport-jwt').ExtractJwt;
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const crypto = require('crypto');
 const userService = require('../../services/UserService');
 
-const opts = {
-    jwtFromRequest: ExtractJwt.fromExtractors([(req) => req.cookies.accessToken]),
-    secretOrKey: 'access_secret_key', // Use a secure secret in production
-    algorithms: ['HS256']
-};
+passport.serializeUser(function(user, cb) { // store user in session
+    process.nextTick(function() {
+      cb(null, { id: user.id, username: user.username }); // store id and username in session
+    });
+  });
+  
+  passport.deserializeUser(function(user, cb) { // retrieve user from session
+    process.nextTick(function() {
+      return cb(null, user);
+    });
+});
 
-passport.use(new JwtStrategy(opts, async function(jwt_payload, done) {
-    try{
-        const user = await userService.findById(jwt_payload.sub);
-        if(user){
-            // check token expiration
-            const currentTime = Math.floor(Date.now() / 1000);
-            if(jwt_payload.exp < currentTime){
-                return done(null, false, {message: 'Token expired'});
-            }
-            return done(null, user);
+passport.use(new LocalStrategy(async function verify(username, password, cb) {
+    try {
+        const user = await userService.findByUsername(username);
+        if (!user) {
+            return cb(null, false, { message: 'Incorrect username or password.' });
         }
-        return done(null, false);
-    }
-    catch(error){
-        return done(error, false);
+
+        crypto.pbkdf2(password, user.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+            if (err) { return cb(err); }
+            if (!crypto.timingSafeEqual(user.password, hashedPassword)) {
+              return cb(null, false, { message: 'Incorrect username or password.' });
+            }
+            return cb(null, user);
+        });
+    } catch (err) {
+        return cb(err);
     }
 }));
 
