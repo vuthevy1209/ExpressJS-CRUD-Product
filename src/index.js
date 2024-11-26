@@ -6,8 +6,10 @@ const router = require('./routes/index.js');
 const db = require('./config/database');
 const hbsHelpers = require('handlebars-helpers');
 const passport = require('./config/auth/passport.js'); // Adjust the path as needed
-const cookieParser = require('cookie-parser');
-// const {checkAuth,authorize} = require('./middleware/auth.js');
+
+var session = require('express-session');
+
+var MongoStore = require('connect-mongo');
 
 const hbs = engine({
     extname: '.hbs',
@@ -27,14 +29,23 @@ const port = 3000;
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: "mongodb+srv://root:ABC123@ga03.dhlfb.mongodb.net/test_auth?retryWrites=true&w=majority&appName=test_auth",
+        collectionName: 'sessions', // Optional, default is 'sessions'
+      }),
+  }));
+
+app.use(passport.authenticate('session'));
+
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-app.use(cookieParser());
 app.use(passport.initialize());
 
-// app.use(checkAuth);
 
 // Template engine
 app.engine('.hbs', hbs);

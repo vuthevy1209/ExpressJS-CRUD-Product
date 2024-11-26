@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 mongoose.set('strictQuery', true);
 
 
-const uri = "mongodb+srv://root:ABC123@ga03.dhlfb.mongodb.net/GA03?retryWrites=true&w=majority&appName=GA03";
+const uri = "mongodb+srv://root:ABC123@ga03.dhlfb.mongodb.net/test_auth?retryWrites=true&w=majority&appName=test_auth";
 
 async function connect() {
     try {
