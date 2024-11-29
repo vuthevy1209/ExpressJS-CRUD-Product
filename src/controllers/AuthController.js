@@ -15,8 +15,9 @@ class AuthController {
     // [POST] /login
     async login(req, res, next) {
         passport.authenticate('local', {
-            successRedirect: req.session.returnTo || '/home', // the returnTo is set in the middleware connectEnsureLogin.ensureLoggedIn
+            // successRedirect: req.session.returnTo || '/home', // the returnTo is set in the middleware connectEnsureLogin.ensureLoggedIn
             // returnTo is the url that the user tried to access before being redirected to the login page
+            successRedirect: '/home',
             failureRedirect: '/login',
             failureFlash: true // Enable flash messages for login failure
         })(req, res, next);

@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="col-6">
-            <a href="#" class="btn-box btn-submit add-to-cart">
+            <a href="/cart" class="btn-box btn-submit add-to-cart">
                 Add
             </a>
             <a href="#" class="btn-box btn-submit buy-now">
@@ -154,12 +154,48 @@
         $('#loginModal').modal('show');
     } --}}
 
+    //# sourceURL=productDetail.js
+
     document.addEventListener("DOMContentLoaded", function () {
         const decrementBtn = document.querySelector(".decrement");
         const incrementBtn = document.querySelector(".increment");
         const quantityInput = document.querySelector(".quantity-input");
         const addToCartBtn = document.querySelector(".btn-submit.add-to-cart");
         const buyNowBtn = document.querySelector(".btn-submit.buy-now");
+
+        function showLoginModal() {
+            $('#loginModal').modal('show');
+            // listen click login-btn
+            // const loginBtn = document.querySelector('.login-btn');
+            // loginBtn.addEventListener('click', () => {
+            //     addToCart();
+            // });
+        }
+
+        function addToCart() {
+            fetch('/cart', {
+                method: 'GET',
+            })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        const contentType = response.headers.get('content-type');
+                        if (!contentType || !contentType.includes('application/json')) {
+                            return; // Do nothing if the content type is not JSON
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data) {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while adding the product to the cart.');
+                    });
+        }
 
         decrementBtn.addEventListener("click", () => {
             let currentValue = parseInt(quantityInput.value);
@@ -176,17 +212,14 @@
         });
 
         addToCartBtn.addEventListener("click", (event) => {
+            event.preventDefault(); // prevent the default navigation behavior when a is clicked
             if (!isLoggedIn) {
-                event.preventDefault();
                 showLoginModal();
+            }
+            else {
+                addToCart();
             }
         });
 
-        buyNowBtn.addEventListener("click", (event) => {
-            if (!isLoggedIn) {
-                event.preventDefault();
-                showLoginModal();
-            }
-        });
     });
 </script>

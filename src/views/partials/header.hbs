@@ -14,7 +14,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"
                             aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span
-                                    class="caret"></span></a>
+                                class="caret"></span></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">About</a></li>
                             <li><a href="#">Testimonial</a></li>
@@ -153,7 +153,7 @@
                 You need to log in to proceed this action.
             </div>
             <div class="modal-footer">
-                <a href="/cart" class="btn btn-primary">Login</a>
+                <a href="/cart" type="button" class="btn btn-primary login-btn">Login</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -162,18 +162,20 @@
 
 
 <script>
+    // add this for enable debugging for this inline script
+    //# sourceURL=somename.js
     const isLoggedIn = {{#if user}}true{{else}}false{{/if}};
     const cartHeader = document.getElementById('cartHeader');
-    function showLoginModal() {
-        $('#loginModal').modal('show');
-    }
-    cartHeader.addEventListener('click', (event) => {
-        if (!isLoggedIn) {
-            event.preventDefault();
-            showLoginModal();
-        }
-        else {
-            window.location.href = '/cart';
-        }
-    });
+    console.log(cartHeader)
+
+
+    // cartHeader.addEventListener('click', (event) => {
+    //     if (!isLoggedIn) {
+    //         event.preventDefault();
+    //         showLoginModal();
+    //     }
+    //     else {
+    //         addToCart();
+    //     }
+    // });
 </script>
