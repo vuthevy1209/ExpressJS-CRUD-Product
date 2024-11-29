@@ -5,14 +5,20 @@ const passport = require('../config/auth/passport');
 class AuthController {
     // [GET] /login
     showLoginForm(req, res) {
-        res.render('auth/login', { layout: 'auth', title: 'Login' });
+        res.render('auth/login', {
+            layout: 'auth',
+            title: 'Login',
+            error: req.flash('error')
+        });
     }
 
     // [POST] /login
     async login(req, res, next) {
         passport.authenticate('local', {
-            successRedirect: '/home',
-            failureRedirect: '/login'
+            successRedirect: req.session.returnTo || '/home', // the returnTo is set in the middleware connectEnsureLogin.ensureLoggedIn
+            // returnTo is the url that the user tried to access before being redirected to the login page
+            failureRedirect: '/login',
+            failureFlash: true // Enable flash messages for login failure
         })(req, res, next);
     }
 

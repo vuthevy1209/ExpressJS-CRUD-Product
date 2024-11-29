@@ -1,6 +1,7 @@
 const siteRouter = require('./siteRoute');
 const productRouter = require('./productRoute');
 const authRouter = require('./authRoute');
+const connectEnsureLogin = require('connect-ensure-login');
 
 function route(app) {
 
@@ -12,8 +13,17 @@ function route(app) {
     // Route Definitions
     app.use('/products', productRouter);
 
-    app.use('/', siteRouter);
+    app.use('/cart', connectEnsureLogin.ensureLoggedIn(
+        { setReturnTo: true }
+    ) ,(req, res) => {
+        // Logic to add the product to the cart goes here
+        // Return a success message
+        res.json({ message: 'Product has been added to cart successfully' });
+    });
     app.use('/', authRouter);
+
+    app.use('/', siteRouter);
+
 
     // Catch-all for 404 errors
     app.use((req, res) => {

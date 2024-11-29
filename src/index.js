@@ -6,6 +6,7 @@ const router = require('./routes/index.js');
 const db = require('./config/database');
 const hbsHelpers = require('handlebars-helpers');
 const passport = require('./config/auth/passport.js'); // Adjust the path as needed
+const flash = require('connect-flash');
 
 var session = require('express-session');
 
@@ -39,13 +40,15 @@ app.use(session({
         ttl: 60
       }),
   }));
+app.use(flash());
 
+app.use(passport.initialize());
 app.use(passport.authenticate('session'));
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(passport.initialize());
+
 
 
 // Template engine
